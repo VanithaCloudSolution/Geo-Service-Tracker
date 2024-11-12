@@ -1,0 +1,57 @@
+<template>
+ 
+    
+  
+    <!-- After the current location is received,
+         its value is displayed here: -->
+    <template lwc:if={currentLocation}>
+        <div class="slds-var-m-vertical_large slds-var-p-vertical_medium
+                    slds-text-align_left slds-border_top slds-border_bottom">
+           
+            <!-- Current location as latitude and longitude -->
+            Your current location is:
+            <pre>{currentLocationAsString}</pre>
+  
+            <!-- Current location as a map -->
+            <lightning-map map-markers={currentLocationAsMarker} zoom-level=16>
+            </lightning-map>
+        </div>
+    </template>
+  
+    <!-- While request is processing, show spinner -->
+    <div class="slds-var-m-around_large">
+        <template lwc:if={requestInProgress}>
+            <div class="slds-is-relative">
+                <lightning-spinner
+                    alternative-text="Getting location...">
+                </lightning-spinner>
+            </div>
+        </template>
+    </div>
+  
+    <!-- Static help text -->
+    <div class="slds-text-align_center slds-text-color_weak slds-var-m-vertical_large">
+        Click <strong>Get Current Location</strong> 
+    </div>
+                  
+    <!-- The get-current-location button;
+         Disabled if LocationService isn't available -->
+    <div class="slds-align_absolute-center slds-var-m-vertical_large">
+        <lightning-button
+            variant="brand"
+            disabled={locationButtonDisabled}
+            icon-name="utility:target"
+            label="Get Current Location"
+            title="Use your device's GPS and other location sensors to determine your current location"
+            onclick={handleGetCurrentLocationClick}>
+        </lightning-button>
+    </div><br>
+    <div class="slds-align_absolute-center slds-var-m-vertical_large">
+    <lightning-button
+    variant="brand"
+    label="Update Location"
+    title="Update the latitude and longitude fields with your current location"
+    onclick={handleUpdateLocationClick}>
+</lightning-button>
+</div>
+ </template>
